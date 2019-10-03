@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class AddTodoController:UIViewController,UITableViewDelegate, UITableViewDataSource
 {
@@ -15,6 +16,7 @@ class AddTodoController:UIViewController,UITableViewDelegate, UITableViewDataSou
     var todoController: TodoController?
     var selectedProject :Int?
     var textOfNewTodo = ""
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (projectTitles.count + 1)
     }
@@ -37,6 +39,7 @@ class AddTodoController:UIViewController,UITableViewDelegate, UITableViewDataSou
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectsList", for: indexPath)
             cell.textLabel?.text = projectTitles[(indexPath.row-1)]
             cell.tintColor = UIColor.gray
+            
             return cell
         }
     }
@@ -58,11 +61,11 @@ class AddTodoController:UIViewController,UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         
-        cell?.accessoryType = .checkmark
-        
-        selectedProject = (indexPath.row - 1)
-        
+        if (cell?.selectionStyle != UITableViewCell.SelectionStyle.none){
+            cell?.accessoryType = .checkmark
+            selectedProject = (indexPath.row - 1)
         }
+    }
     
     func tableView(_ tableView: UITableView,didDeselectRowAt  indexPath: IndexPath) {
            let cell = tableView.cellForRow(at: indexPath)
@@ -78,8 +81,17 @@ class AddTodoController:UIViewController,UITableViewDelegate, UITableViewDataSou
     @IBAction func onSaveButton(_ sender: Any) {
         if !(textOfNewTodo == "") && selectedProject != nil {
         dismiss(animated: true,completion: {
-            self.todoController?.OnUserAction(project: self.selectedProject!, todoName: self.textOfNewTodo)
+            let  parameters: [String: [String: Any]] = [
+                "todo": [
+                    "ios": true,
+                    "text": self.textOfNewTodo,
+                    "project_id": self.selectedProject! + 1
+                ]
+            ]
+            Alamofire.request("https://obscure-harbor-43101.herokuapp.com/todos",method: .post, parameters: parameters)
+            self.todoController?.OnUserAction()
         })
+            
         }
     }
     override func viewDidLoad() {

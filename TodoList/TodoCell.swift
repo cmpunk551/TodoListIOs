@@ -8,12 +8,15 @@
 
 import UIKit
 import M13Checkbox
+import Alamofire
 
 class TodoCell: UITableViewCell
 {
+  
     
     @IBOutlet weak var TodoText: UILabel!
     
+    var todoId: Int = 0
     var todoText = ""
     var checkbox = M13Checkbox(frame: CGRect(x: 30.0, y: 10.0, width: 20.0, height: 20.0))
     
@@ -23,8 +26,18 @@ class TodoCell: UITableViewCell
     checkbox.boxType = M13Checkbox.BoxType.square
     checkbox.stateChangeAnimation = M13Checkbox.Animation.fill
     checkbox.addTarget(self, action: #selector(strikeThrough), for: UIControl.Event.valueChanged)
+    checkbox.addTarget(self, action: #selector(UpdateState), for: UIControl.Event.valueChanged)
     contentView.addSubview(checkbox)
     TodoText.text = todoText
+    TodoText.numberOfLines = 2
+    }
+    
+    @objc func UpdateState(){
+        let  parameters: [String: Int] = [
+            "id": todoId
+        ]
+        
+        Alamofire.request("https://obscure-harbor-43101.herokuapp.com/todos/" + String(todoId) ,method: .put, parameters: parameters)
         
     }
     @objc func strikeThrough() {
@@ -41,6 +54,5 @@ class TodoCell: UITableViewCell
             NSAttributedString.Key.strikethroughColor: UIColor.clear]
             self.TodoText.attributedText = NSAttributedString(string: self.TodoText.text ?? "", attributes: strokeEffect)
         }
-        
     }
 }

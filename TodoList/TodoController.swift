@@ -7,39 +7,37 @@
 //
 
 import UIKit
+import M13Checkbox
+import Alamofire
 
 class TodoController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
-    struct Project {
-        var todos = [String]()
-        var name :String
-    }
     
     var projects = [Project]()
-    
+    var todos = [Todo]()
     @IBOutlet weak var projectsTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         projectsTable.delegate = self
         projectsTable.dataSource = self
-        
-        let firstProject = Project(todos: ["Приготовить обед","Погулять с собакой","Убраться"], name:"Семья")
-       
-        projects.append(firstProject)
-        
-        let secondProject = Project(todos:["Сделать Отчёт","Совещание"], name: "Работа")
-        projects.append(secondProject)
-        
+        Alamofire.request("https://obscure-harbor-43101.herokuapp.com/todos.json").responseObject { (response: DataResponse<AllData>) in
+            debugPrint(response)
+            if let allData = response.result.value {
+                self.projects = allData.allProjects
+                self.todos = allData.allTodos
+                self.projectsTable.reloadData()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           
-           return projects[section].todos.count
+        
+        return todos.filter({todo in todo.project_id == (section+1)}).count
        }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableCell(withIdentifier: "Project")
-        header?.textLabel?.text = projects[section].name
+        header?.textLabel?.text = projects[section].title
         return header
     }
     
@@ -55,8 +53,28 @@ class TodoController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let todo = todos.filter({todo in todo.project_id == (indexPath.section+1)})[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Todo",for: indexPath) as! TodoCell
-        cell.TodoText.text = projects[indexPath.section].todos[indexPath.row]
+        
+        var todoId: Int = 0
+        for currentTodo in todos.reversed(){
+            if currentTodo === todo{
+                cell.todoId = todoId + 1
+            }
+            else{
+                todoId += 1
+            }
+        }
+        cell.TodoText.text = todo.text
+        if todo.isCompleted{
+            cell.checkbox.setCheckState(.checked, animated: false)
+            cell.strikeThrough()
+        }
+        else{
+            cell.checkbox.setCheckState(.unchecked, animated: false)
+            cell.strikeThrough()
+        }
         return cell
     }
     
@@ -65,18 +83,29 @@ class TodoController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func prepare(for segue: UIStoryboardSegue,sender: Any?){
-       if let navVC = segue.destination as? UINavigationController,
-        let addTodovc = navVC.topViewController as? AddTodoController {
-        addTodovc.todoController = self
+       if let navVc = segue.destination as? UINavigationController,
+        let addTodoVc = navVc.topViewController as? AddTodoController {
+        addTodoVc.todoController = self
             for project in projects{
-                addTodovc.projectTitles.append(project.name)
+                addTodoVc.projectTitles.append(project.title)
             }
             
         }
     }
-    func OnUserAction(project: Int, todoName: String){
-        projects[project].todos.append(todoName)
-        projectsTable.reloadData()
+    func OnUserAction(){
+        Alamofire.request("https://obscure-harbor-43101.herokuapp.com/todos.json").responseObject { (response: DataResponse<AllData>) in
+        debugPrint(response)
+        if let allData = response.result.value {
+            self.projects = allData.allProjects
+            self.todos = allData.allTodos
+            self.projectsTable.reloadData()
+        }
     }
+    }
+    
+    func GetDataFromApi(){
+        
+    }
+    
 }
 

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		724A5F69F8AC2B249C918F49 /* libPods-TodoList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 068E6733E95D53E899855B66 /* libPods-TodoList.a */; };
+		913B80E92344C95E001EDF3A /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913B80E82344C95E001EDF3A /* Project.swift */; };
+		913B80EB2344CA9C001EDF3A /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913B80EA2344CA9C001EDF3A /* Todo.swift */; };
+		913B80F12345D2DE001EDF3A /* AllData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913B80F02345D2DE001EDF3A /* AllData.swift */; };
+		913B80F32345D379001EDF3A /* ResponseObjectSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913B80F22345D379001EDF3A /* ResponseObjectSerializable.swift */; };
+		913B80F52345D38E001EDF3A /* ResponseCollectionSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913B80F42345D38E001EDF3A /* ResponseCollectionSerializable.swift */; };
 		9152B5DA2341209C00BCC9B4 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9152B5D92341209C00BCC9B4 /* TodoCell.swift */; };
 		9152B5DC23415B4B00BCC9B4 /* AddTodoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9152B5DB23415B4B00BCC9B4 /* AddTodoController.swift */; };
 		918BD9C1233F8BF700537C06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918BD9C0233F8BF700537C06 /* AppDelegate.swift */; };
@@ -42,6 +47,11 @@
 /* Begin PBXFileReference section */
 		068E6733E95D53E899855B66 /* libPods-TodoList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodoList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F165E435280CC1FB5CCD41 /* Pods-TodoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoList.debug.xcconfig"; path = "Target Support Files/Pods-TodoList/Pods-TodoList.debug.xcconfig"; sourceTree = "<group>"; };
+		913B80E82344C95E001EDF3A /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		913B80EA2344CA9C001EDF3A /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		913B80F02345D2DE001EDF3A /* AllData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllData.swift; sourceTree = "<group>"; };
+		913B80F22345D379001EDF3A /* ResponseObjectSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseObjectSerializable.swift; path = ../../../../Downloads/ResponseObjectSerializable.swift; sourceTree = "<group>"; };
+		913B80F42345D38E001EDF3A /* ResponseCollectionSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseCollectionSerializable.swift; path = ../../../../Downloads/ResponseCollectionSerializable.swift; sourceTree = "<group>"; };
 		9152B5D92341209C00BCC9B4 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		9152B5DB23415B4B00BCC9B4 /* AddTodoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoController.swift; sourceTree = "<group>"; };
 		918BD9BD233F8BF700537C06 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +142,8 @@
 		918BD9BF233F8BF700537C06 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				913B80F22345D379001EDF3A /* ResponseObjectSerializable.swift */,
+				913B80F42345D38E001EDF3A /* ResponseCollectionSerializable.swift */,
 				918BD9C0233F8BF700537C06 /* AppDelegate.swift */,
 				918BD9C2233F8BF700537C06 /* SceneDelegate.swift */,
 				9152B5DD2341F51E00BCC9B4 /* Controllers */,
@@ -141,6 +153,9 @@
 				918BD9CE233F8BFA00537C06 /* Info.plist */,
 				9152B5D92341209C00BCC9B4 /* TodoCell.swift */,
 				9190D1AB2342038F00E8C2BF /* TodoTextCell.swift */,
+				913B80E82344C95E001EDF3A /* Project.swift */,
+				913B80EA2344CA9C001EDF3A /* Todo.swift */,
+				913B80F02345D2DE001EDF3A /* AllData.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -332,9 +347,14 @@
 			files = (
 				9190D1AC2342038F00E8C2BF /* TodoTextCell.swift in Sources */,
 				918BD9C5233F8BF700537C06 /* TodoController.swift in Sources */,
+				913B80F12345D2DE001EDF3A /* AllData.swift in Sources */,
 				918BD9C1233F8BF700537C06 /* AppDelegate.swift in Sources */,
+				913B80EB2344CA9C001EDF3A /* Todo.swift in Sources */,
 				9152B5DC23415B4B00BCC9B4 /* AddTodoController.swift in Sources */,
+				913B80F32345D379001EDF3A /* ResponseObjectSerializable.swift in Sources */,
 				918BD9C3233F8BF700537C06 /* SceneDelegate.swift in Sources */,
+				913B80E92344C95E001EDF3A /* Project.swift in Sources */,
+				913B80F52345D38E001EDF3A /* ResponseCollectionSerializable.swift in Sources */,
 				9152B5DA2341209C00BCC9B4 /* TodoCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,6 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PB5HBGY76Q;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -529,6 +550,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PB5HBGY76Q;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
