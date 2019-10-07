@@ -66,6 +66,7 @@ class TodoController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 todoId += 1
             }
         }
+        cell.todo = todo
         cell.TodoText.text = todo.text
         if todo.isCompleted{
             cell.checkbox.setCheckState(.checked, animated: false)
@@ -93,19 +94,19 @@ class TodoController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     func OnUserAction(){
-        Alamofire.request("https://obscure-harbor-43101.herokuapp.com/todos.json").responseObject { (response: DataResponse<AllData>) in
+       
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5 ) { Alamofire.request("https://obscure-harbor-43101.herokuapp.com/todos.json").responseObject { (response: DataResponse<AllData>) in
         debugPrint(response)
+            
         if let allData = response.result.value {
             self.projects = allData.allProjects
             self.todos = allData.allTodos
             self.projectsTable.reloadData()
+            
+        }
+            
         }
     }
     }
-    
-    func GetDataFromApi(){
-        
-    }
-    
 }
 

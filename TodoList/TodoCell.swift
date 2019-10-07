@@ -16,6 +16,7 @@ class TodoCell: UITableViewCell
     
     @IBOutlet weak var TodoText: UILabel!
     
+    var todo = Todo()
     var todoId: Int = 0
     var todoText = ""
     var checkbox = M13Checkbox(frame: CGRect(x: 30.0, y: 10.0, width: 20.0, height: 20.0))
@@ -38,6 +39,7 @@ class TodoCell: UITableViewCell
         ]
         
         Alamofire.request("https://obscure-harbor-43101.herokuapp.com/todos/" + String(todoId) ,method: .put, parameters: parameters)
+        self.todo.isCompleted = !todo.isCompleted
         
     }
     @objc func strikeThrough() {
